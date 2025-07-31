@@ -11,3 +11,15 @@ first ten natural numbers and the square of the sum is
 Find the difference between the sum of the squares of the 
 first one hundred natural numbers and the square of the sum.
 -}
+
+sumSquares :: Integer
+sumSquares =
+    let sq x = x * x
+        lst = map sq [2..100]
+    in foldl (+) 1 lst
+
+squareSum = foldl (+) 1 [2..100] ^2
+
+
+main :: IO()
+main = print (squareSum - sumSquares)
