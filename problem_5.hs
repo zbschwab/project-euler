@@ -6,17 +6,16 @@ What is the smallest positive number that is evenly divisible by all of the numb
 1 to 20?
 -}
 
--- 1-5 : 30
--- 1-6 : 60
--- m : max number in 1, 2,..., m sequence
--- n : smallest number evenly divisble by 1-m
--- d : current divisor
+-- gcd w/ euclidean algorithm
+myGCD :: (Ord a, Num a) => a -> a -> a
+myGCD a b
+    | a == b    = a
+    | a > b     = myGCD (a-b) b
+    | a < b     = myGCD a (b-a)
+
+-- lcm(a,b) = (a * b) / gcd(a,b)
+myLCM :: Integral a => a -> a -> a
+myLCM a b = (a * b) `div` myGCD a b
 
 main :: IO ()
-main = print (evendiv 6 6 6)
-
-
-evendiv n m d
-    | d <= 1            = n
-    | n `mod` d == 0    = evendiv n m (d - 1)
-    | otherwise         = evendiv (n + m) m d
+main = print (foldl myLCM 1 [2..20])
